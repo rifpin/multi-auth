@@ -1,0 +1,26 @@
+Add to User model
+  	$table->boolean('is_admin')->nullable();
+
+Create middleware Admin
+ 	php artisan make:middleware Admin
+
+ App\Http\Middleware\Admin.php
+	  public function handle($request, Closure $next)
+	    {
+	        
+	        if(auth()->user()->is_admin==1)
+	        {
+	            return $next($request);
+	        }
+
+	        return redirect('home')->with('error','You dont have admin access');
+	    }
+
+Home view
+	 	@if(auth()->user()->is_admin)
+            <a href="{{url('admin/routes')}}" class="btn btn-secondary btn-sm">Admin Menu</a> 
+        @endif
+
+Add route
+	Route::get('/admin/routes','HomeController@admin')->middleware('admin');
+
