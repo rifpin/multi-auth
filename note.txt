@@ -24,3 +24,5 @@ Home view
 Add route
 	Route::get('/admin/routes','HomeController@admin')->middleware('admin');
 
+App\Http\Kernel
+'admin' => \App\Http\Middleware\Admin::class,
